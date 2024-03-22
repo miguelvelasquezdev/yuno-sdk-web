@@ -1,6 +1,6 @@
 import { createContext } from "react";
-import { YunoInstance } from "../types";
+import { Yuno, YunoInstance } from "../types";
 
-export const YunoContext = createContext<{ publicApiKey: string }>({
-  publicApiKey: "test",
-});
+export type YunoState = { publicApiKey: string; yuno: YunoInstance }
+
+export const YunoContext = createContext<YunoState | null>(null);

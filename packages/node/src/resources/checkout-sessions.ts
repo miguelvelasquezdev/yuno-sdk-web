@@ -17,14 +17,15 @@ export function handleCheckoutSessionMethods(config: CheckoutSessionConfig) {
 
 export function createCheckoutSession(apiKeys: ApiKeys) {
   return async function createCheckoutSessionInner(
-    checkoutSession: CheckoutSessionInput,
+    params: CheckoutSessionInput,
+    options?: Partial<ApiKeys>
   ) {
-    const body = { ...checkoutSession, account_id: apiKeys.accountCode };
+    const body = { ...params, account_id: apiKeys.accountCode };
 
     return await requestHandler<CheckoutSessionResponse>({
       path: "/v1/checkout/sessions",
       method: "POST",
-      apiKeys,
+      apiKeys: { ...apiKeys, ...options },
       body,
     });
   };

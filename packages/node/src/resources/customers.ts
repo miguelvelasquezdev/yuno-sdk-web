@@ -16,16 +16,16 @@ export function handleCustomerMethods(config: CustomerConfig) {
  * @param {string} merchant_customer_id - Optional parameter, if you don't pass a value Yuno will generate one for you
  */
 function createCustomer(apiKeys: ApiKeys) {
-  return async function createCustomerInner(customer: CustomerInput) {
+  return async function createCustomerInner(params: CustomerInput, options?: Partial<ApiKeys>) {
     const body = {
-      ...customer,
-      merchant_customer_id: customer.merchant_customer_id ?? nanoid(),
+      ...params,
+      merchant_customer_id: params.merchant_customer_id ?? nanoid(),
     };
 
     return await requestHandler<CustomerResponse>({
       path: "/v1/customers",
       method: "POST",
-      apiKeys,
+      apiKeys: { ...apiKeys, ...options },
       body,
     });
   };

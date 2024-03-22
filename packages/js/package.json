@@ -1,6 +1,6 @@
 {
-  "name": "@miguelv-yuno/js",
-  "version": "1.0.0",
+  "name": "@miguel-yuno/js",
+  "version": "1.0.2",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "exports": {
@@ -20,5 +20,10 @@
   "devDependencies": {
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
-  }
+  },
+  "author": "",
+  "dependencies": {
+    "rollup": "^4.13.0"
+  },
+  "description": ""
 }

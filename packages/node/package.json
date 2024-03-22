@@ -1,5 +1,5 @@
 {
-  "name": "@miguelv-yuno/node",
+  "name": "@miguel-yuno/node",
   "version": "1.0.0",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -24,5 +24,7 @@
     "@types/node": "20.8.4",
     "tsup": "7.2.0",
     "typescript": "5.2.2"
-  }
+  },
+  "description": "> Node.js SDK Support",
+  "author": ""
 }

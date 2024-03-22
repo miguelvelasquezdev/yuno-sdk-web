@@ -1,20 +1,5 @@
 import { ApiKeys } from "../types";
-
-type ApiKeyPrefixToEnvironmentSuffix = {
-  dev: "-dev";
-  staging: "-staging";
-  sandbox: "-sandbox";
-  prod: "";
-};
-type ApiKeyPrefix = keyof ApiKeyPrefixToEnvironmentSuffix;
-type EnvironmentSuffix = ApiKeyPrefixToEnvironmentSuffix[ApiKeyPrefix];
-type FetchMethods = "POST" | "GET";
-type RequestOptions = {
-  method: FetchMethods;
-  path?: string;
-  apiKeys: ApiKeys;
-  body?: unknown;
-};
+import { ApiKeyPrefix, ApiKeyPrefixToEnvironmentSuffix, EnvironmentSuffix, RequestOptions } from "./types";
 
 export async function requestHandler<TReturn>(
   opts: RequestOptions,
@@ -44,7 +29,16 @@ function setHeaders(opts: HeadersOps) {
     "public-api-key": publicApiKey,
     "private-secret-key": privateSecretKey,
     "Content-Type": "application/json",
+  } as {
+    ['public-api-key']: string;
+    ["private-secret-key"]: string;
+    ["Content-Type"]: string;
+    ["X-Idempotency-Key"]?: string
   };
+
+  if (opts.apiKeys.idempotencyKey) {
+    defaultHeaders["X-Idempotency-Key"] = opts.apiKeys.idempotencyKey;
+  }
 
   return defaultHeaders;
 }

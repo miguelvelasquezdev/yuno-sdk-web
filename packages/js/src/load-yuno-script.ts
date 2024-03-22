@@ -5,17 +5,22 @@ import {
   isServer,
 } from "./internal/utils";
 
-export function loadYunoScript() {
+export async function loadYunoScript() {
   if (isServer)
     throw new Error(
       `You're trying to use @yuno-sdk-web/js in a server environment. This is not supported by default.`,
     );
 
-  const yunoInstanceFound = getYunoInstance();
-  if (yunoInstanceFound) return yunoInstanceFound;
+  const yunoFound = getYunoInstance();
+  if (yunoFound) return yunoFound;
 
-  const yunoInstance = insertYunoScriptElement();
-  return yunoInstance
+  const yuno = await insertYunoScriptElement();
+
+  if (!yuno) {
+    throw Error("Failed to download Yuno script.")
+  }
+
+  return yuno
 }
 
 function getYunoInstance() {
