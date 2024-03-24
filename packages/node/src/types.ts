@@ -124,35 +124,7 @@ type PaymentMethod = {
   token: string;
   vaulted_token?: string;
   type?: string;
-  detail?: {
-    card?: {
-      capture?: boolean;
-      intallments?: number;
-      first_installment_deferral?: number;
-      soft_descriptor?: string;
-      card_data?: {
-        number: string;
-        expiration_month: number;
-        expiration_year: number;
-        security_code: string;
-        holder_name: string;
-        type?: string;
-      };
-      three_d_secure?: {
-        three_d_secure_setup_id?: string;
-        version?: string;
-        electronic_commerce_indicator?: string;
-        cryptogram?: string;
-        transaction_id?: string;
-        directory_server_transaction_id?: string;
-        verify?: boolean;
-        stored_credentials?: {
-          reason?: string;
-          usage?: string;
-        };
-      };
-    };
-  };
+  detail?: any;
   vault_on_success?: boolean;
 }
 
@@ -209,7 +181,33 @@ export type PaymentResponse = Payment & {
     value: number;
     refunded: number;
     captured: number;
-  }
+  };
+  transactions?: {
+    id: string;
+    type: string;
+    status: string;
+    category: string;
+    amount: number;
+    provider_id: string;
+    response_code: string;
+    response_message: string;
+    reason: string | null;
+    description: string;
+    merchant_reference: string | null;
+    provider_data : {
+      id: string;
+      transaction_id: string;
+      account_id: string;
+      status: string;
+      sub_status: string;
+      status_detail: string;
+      response_message: string;
+      third_party_transaction_id: string;
+    };
+    created_at: string;
+    updated_at: string;
+  };
+  
 };
 
 export type ApiKeys = {
